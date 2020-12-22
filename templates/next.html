@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="height: 1500px;">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  </head>
+  <body>
+    <header>
+    <h1 class= "title"><a href="/">Document recommendation program</a></h1>
+    <h1 class= "sub-title"><a href="/">including similarity check</a></h1>
+  </header>
+  <section class="box">
+    <div class="searchBox">
+      <form action="/word" method="get" style="text-align: center">
+        <input type="text" placeholder="Please enter a word!" name="word">
+        <button class = "image-button">SEARCH</button>
+      </form>
+    </div>
+    <div class="ranking_news">Ranking News</div>
+  <article>
+  {%for i in range(20):%}
+    {% if 20*(current_page-1)+i+1<=len: %}
+      </div>
+        <form action="/document" method="get">
+        <input value = {{15*(current_page-1)+i}} name="title" hidden>
+        <button class="article-name">{{20*(current_page-1)+i+1}}. {{t[20*(current_page-1)+i]}}</button>
+        </form>
+      </div>
+    {% endif %}
+  {%endfor%}
+
+
+  {%if(not(current_page==1)) :%}
+  <div class="btn">
+  <form action="/next" method="get">
+      <input value = {{current_page+-1}} name="page" hidden>
+      <button class="movebtn prevbtn">PREV</button>
+  </form>
+  {%endif%}
+    <form action="/next" method="get">
+      <input value = {{current_page+1}} name="page" hidden>
+      <button class="movebtn nextbtn">NEXT</button>
+  </form>
+  </div>
+  </article>
+  </section>
+  </body>
+</html>

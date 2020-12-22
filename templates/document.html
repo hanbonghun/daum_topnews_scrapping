@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="height: 1500px;">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <title></title>
+  </head>
+  <body>
+    <header>
+    <h1 class= "title"><a href="/">Document recommendation program</a></h1>
+    <h1 class= "sub-title"><a href="/">including similarity check</a></h1>
+  </header>
+  <section class="box">
+    <div class="searchBox">
+      <form action="/word" method="get" style="text-align: center">
+        <input type="text" placeholder="Please enter a word!" name="word">
+        <button class = "image-button">SEARCH</button>
+      </form>
+    </div>
+
+  <div class=big-box>
+
+  <div class="left-box">
+  <div class="summary">Summary</div>
+  <div class= "summary_contents">{{summary}}</div>
+
+  <div class="main">Contents</div>
+  <h2 class="title">{{title}}</h2>
+  <div class = "content-box">
+    <h3 class="content">{{content}}</h3>
+  </div>
+  </div>
+
+  <div class="right-box">
+    <div class="similar">Similar Documents</div>
+      {%for i in range(5) :%}
+      <form action="/document" method="get">
+      <input value = {{index[i]}} name="title" hidden>
+      <button class="article_title">{{i+1}}. {{similar_articles[i]}}</button>
+      </form>
+      {%endfor%}
+
+
+    <div class="topword">Top Ranking Word</h3></div>
+      {%for i in range(5) :%}
+        <div class="word">{{i+1}}. {{top_rank_words[i]}}</div>
+      {%endfor%}
+    </div>
+
+</div>
+  <div class= "tolist">
+   <form action="/next" method="get">
+      <input value = {{curr_page}} name="page" hidden>
+      <button class="movebtn">To list</button>
+  </form>
+</div>
+  </section>
+  </body>
+</html>

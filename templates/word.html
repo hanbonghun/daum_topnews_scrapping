@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" style="height: 1500px;">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  </head>
+  <body>
+    <header>
+    <h1 class= "title"><a href="/">Document recommendation program</a></h1>
+    <h1 class= "sub-title"><a href="/">including similarity check</a></h1>
+  </header>
+  <section class="box">
+    <div class="searchBox">
+      <form action="/word" method="get" style="text-align: center">
+        <input type="text" placeholder="Please enter a word!" name="word">
+        <button class = "image-button">SEARCH</button>
+      </form>
+    </div>
+
+  <article>
+  {%if(n==0) : %}
+  <div class="error">couldn't find any articles containing the word.</div>
+  {%else%}
+      <div class = "keyword">Keyword : {{keyword}}</div>
+      {%for i in range(n) :%}
+         </div>
+        <form action="/document" method="get">
+        <input value = {{result[i][0]}} name="title" hidden>
+        <button class="article-name">{{i+1}}. {{titles[result[i][0]]}}</button>
+        </form>
+      </div>
+      {%endfor%}
+  {%endif%}
+  <form action="/next" method="get">
+      <input value = 1 name="page" hidden>
+      <button class="movebtn">HOME</button>
+  </form>
+</article>
+  </section>
+  </body>
+</html>
